@@ -1,45 +1,25 @@
-import React from 'react'
-
+import React from "react";
 
 interface ImagecardProps {
-    userName: string,
-    title : string,
-    
-   
-    address: string
+  userName: string;
+  title: string;
+
+  address: string;
 }
 
-
-interface ImageSrc {
-    medium: string;
-    original: string;
-    // Add other sizes if needed
-  }
-  
-  interface PexelsImage {
-    id: number;
-    src: ImageSrc;
-    photographer: string;
-    // Add other properties if needed
-  }
-
-const Imagecard:React.FC<ImagecardProps> = ({userName, title, address}) => {
+const Imagecard: React.FC<ImagecardProps> = ({ userName, title, address }) => {
   return (
-    <div  className='imagecard'>
-
-
-
-       <h2 className='bold'> {userName} Details </h2>
-        title: {title}
-        address: {address}
-
-     
-        
-
-      
-        
+    <div className="imagecard">
+      <div className="center-div text-center">
+        <div>
+          <h2 className="bold "> {userName} Details </h2>
+          <span className="bold margin-bottom"> Title: </span> {title}
+          <br />
+          <span className="bold">Address: </span> {address}
+        </div>
+      </div>
     </div>
-  )
-}
+  );
+};
 
-export default Imagecard
+export default Imagecard;

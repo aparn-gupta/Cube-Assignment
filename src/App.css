@@ -1,53 +1,99 @@
 .App {
- 
 }
 
-
-.photos   {
-    width: 50px;
-    height: 50px
+.photos {
+  width: 200px;
+  height: 200px;
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1),
+    0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  border-radius: 0.75rem;
 }
-
 
 .cards {
-    background-color: bisque;
-    padding: 2rem;
-    margin-bottom: 1rem;
-    width: 300px;
-    width: 100%
+  background-color: rgb(245, 245, 245);
+  padding: 2rem;
+  margin-bottom: 1rem;
+
+  width: 85%;
 }
 
-
-.cards:hover {
-    background-color: rgb(214, 189, 237);
+.cards:focus {
+  background-color: rgb(200, 200, 200);
 }
-
 
 .imagecard {
-    width: 100%;
-    background-color: pink;
-    height: 500px;
-    padding: 4rem
+  width: 87%;
+  background-color: rgb(226, 226, 226);
 
+  padding: 4rem;
 }
 
 .container1 {
-    display: flex;
-    justify-content: space-evenly;
-    
-    width: 100vw
+  display: flex;
+
+  width: 100vw;
+
+  flex-direction: row;
+  gap: 20px;
 }
 
 .customer-container {
-    width: 30%
+  display: flex;
+  flex-direction: column;
 
+  width: 30%;
+  height: 100%;
+
+  padding: 10px;
+  border: 1px solid #ccc;
+  margin-top: 4.6rem;
 }
 
-
 .imagecard-container {
-    width: 50%
+  width: 65%;
+  display: flex;
+  flex-direction: column;
+  overflow-y: scroll;
+  height: 95%;
+
+  padding: 10px;
+  border: 1px solid #ccc;
+  position: fixed;
+  top: 5rem;
+  right: 0;
 }
 
 .bold {
-    font: bold;
+  font: bold;
+}
+
+.grid-container {
+  display: grid;
+  grid-gap: 15px;
+  grid-template-columns: repeat(3, 3fr);
+  padding: 0 8rem 4rem 8rem;
+  background-color: rgb(226, 226, 226);
+}
+
+.center-div {
+  display: flex;
+  justify-content: center;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.margin-bottom {
+  margin-bottom: 1rem;
+}
+
+.heading {
+  display: flex;
+  justify-content: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background-color: white;
+  width: 100vw;
 }
