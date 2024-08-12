@@ -13,9 +13,10 @@ const Imagecard: React.FC<ImagecardProps> = ({ userName, title, address }) => {
       <div className="center-div text-center">
         <div>
           <h2 className="bold "> {userName} Details </h2>
-          <span className="bold margin-bottom"> Title: </span> {title}
+          <span className="bold margin-bottom"> TITLE: </span> {title}
           <br />
-          <span className="bold">Address: </span> {address}
+          <br />
+          <span className="bold">ADDRESS: </span> {address}
         </div>
       </div>
     </div>

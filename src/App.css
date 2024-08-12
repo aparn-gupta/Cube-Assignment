@@ -71,8 +71,9 @@
   display: grid;
   grid-gap: 15px;
   grid-template-columns: repeat(3, 3fr);
-  padding: 0 8rem 4rem 8rem;
+  padding: 0 8rem 8rem 8rem;
   background-color: rgb(226, 226, 226);
+  
 }
 
 .center-div {

@@ -4,53 +4,35 @@ import axios from "axios";
 import Cards from "./cards";
 import Imagecard from "./Imagecard";
 
+
 function Main() {
-  interface ImageSrc {
-    medium: string;
-    original: string;
-  }
-
-  interface PexelsImage {
-    id: number;
-    src: ImageSrc;
-    photographer: string;
-  }
-
-  interface UserNames {
+  interface UserEntries {
     name: string;
-  }
-
-  interface UserTitles {
-    title: string;
     body: string;
+    email: string;
   }
 
-  interface UserAddresses {}
+  interface Image {
+    id: number;
+    src: {
+      original: string;
+      medium: string;
+    };
+  }
 
-  const [allimages, setImages] = useState<PexelsImage[]>([]);
-  const [allNames, setallNames] = useState<UserNames[]>([]);
-  const [allTitles, setallTitles] = useState<UserTitles[]>([]);
-  // const [allAddresses, setallAddresses] = useState<UserAddresses[]>([])
+  const [allEntries, setallEntries] = useState<UserEntries[]>([]);
+  const [allImages, setImages] = useState<Image[]>([]);
+
   const [cardIndex, setCardIndex] = useState(0);
   const [sn, setSn] = useState(0); //sn is serial number for counting index of the images array
+ 
 
   useEffect(() => {
     try {
       axios.get("https://jsonplaceholder.typicode.com/comments").then((res) => {
         const userName = res.data;
 
-        setallNames(userName);
-      });
-    } catch (err) {
-      console.log(err);
-    }
-  }, []);
-
-  useEffect(() => {
-    try {
-      axios.get("https://jsonplaceholder.typicode.com/posts").then((res) => {
-        const userTitle = res.data;
-        setallTitles(userTitle);
+        setallEntries(userName);
       });
     } catch (err) {
       console.log(err);
@@ -61,16 +43,13 @@ function Main() {
     const fetchmyImages = async () => {
       const res = await axios.get("https://api.pexels.com/v1/curated", {
         headers: {
-          Authorization:
-            "ptiZk19t1IKkLdO4kx5f4iKEMCNjyKEZWdgApr0RPispuXi9nmrT4bd6",
+          Authorization: process.env.PEXELS_API_KEY,
         },
         params: {
           per_page: 80, //pexelsAPI can load 80 images per page in an API call
           page: 2,
         },
       });
-
-      setImages(res.data.photos[0].src.medium);
 
       let images = res.data.photos;
 
@@ -80,22 +59,23 @@ function Main() {
     fetchmyImages();
   }, []);
 
-  let newImageArray = allimages.slice(1, 9);
+  let newImageArray = allImages.slice(1, 9);
 
-  //to loop through the images array
+  //to keep the images array lopping (not enough images in one call of Pexels Api, multiple calls not allowed)
 
   if (sn <= 70) {
-    newImageArray = allimages.slice(sn, sn + 9);
-  }
-  if (sn > 70) {
-    newImageArray = allimages.slice(sn - 9, sn);
+    newImageArray = allImages.slice(sn, sn + 9);
+  } else if (sn > 70) {
+    newImageArray = allImages.slice(Math.ceil(sn / 8), Math.ceil(sn / 8) + 9);
   }
 
-  // const changeImages = () => {
-  //   setSn(prev => prev + 1)
-  // }
+  useEffect(() => {
+    const changeImages = () => {
+      setSn((prev) => prev + 10);
+    };
 
-  // setInterval(changeImages, 10000)
+    const interValid = setInterval(changeImages, 10000);
+  }, []);
 
   return (
     <div className="App">
@@ -106,8 +86,9 @@ function Main() {
 
       <div className="container1">
         <div className="customer-container">
-          {allTitles.map((item, index) => (
+          {allEntries.map((item, index) => (
             <div
+              key={index}
               onClick={() => {
                 setCardIndex(index);
                 setSn(index + 1);
@@ -115,9 +96,8 @@ function Main() {
             >
               {" "}
               <Cards
-                key={index}
-                name={allNames[index].name}
-                title={item.title}
+                name={allEntries[index].name}
+                title={item.body}
                 id={index}
               />{" "}
             </div>
@@ -126,11 +106,11 @@ function Main() {
 
         <div className="imagecard-container">
           <div>
-            {cardIndex < allTitles.length && cardIndex < allNames.length && (
+            {cardIndex < allEntries.length && (
               <Imagecard
-                title={allTitles[cardIndex].title}
-                address={allTitles[cardIndex].body}
-                userName={allNames[cardIndex].name}
+                title={allEntries[cardIndex].body}
+                address={allEntries[cardIndex].email}
+                userName={allEntries[cardIndex].name}
               />
             )}
 

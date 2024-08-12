@@ -9,7 +9,7 @@ interface Cardsprops {
 
 const Cards: React.FC<Cardsprops> = ({ name, title, id }) => {
   return (
-    <div tabIndex={0} className="cards" onClick={() => console.log(id)}>
+    <div tabIndex={0} className="cards" >
       <h2 className="bold"> {name}</h2>
       <br />
 
